@@ -39,7 +39,7 @@ app.config(['$routeProvider', function($routeProvider) {
 app.config(['$translateProvider', function($translateProvider) {
 
 		$translateProvider.translations('en', {
-			'APP_NAME': 'Application release monitor',
+			'APP_NAME': 'Release monitor',
 			'MENU_DASHBOARD': 'Dashboard',
 			'MENU_ABOUT': 'About',
 		});

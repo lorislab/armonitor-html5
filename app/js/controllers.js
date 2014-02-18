@@ -5,14 +5,12 @@
 angular.module('armonitor.controllers', [])
 		.controller('DashboardCtrl', function($scope, DashboardService) {
 
-			$scope.getProjects = function() {
+			$scope.getDashboard = function() {
 				return DashboardService.get();
 			};
-			$scope.reload = function() {
-				DashboardService.load(function(size) {
-
-				});
-			};			
+			$scope.getProjects = function() {
+				return DashboardService.getProjects();
+			};		
 		})
 		.controller('AboutCtrl', function($scope) {
 

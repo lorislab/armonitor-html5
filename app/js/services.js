@@ -1,41 +1,51 @@
 'use strict';
 
 /* Services */
-
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
 angular.module('armonitor.services', ['ngResource'])
 		.factory('DashboardRSService', function($resource, config) {
-			return $resource(config.server + '/db',{},{});
+			return $resource(config.server + '/db', {}, {
+				get: {
+					method: 'GET',
+					isArray: false
+				},
+				build: {
+					method: 'GET',
+					url: config.server + '/db/sys/:sys/build',
+					params: {sys: '@sys'},
+					isArray: false
+				}
+			});
 		})
 		.factory('DashboardService', function(DashboardRSService) {
-			var projects = [];
-			
+			var dashboard = null;
+
 			function _load(callback) {
-				DashboardRSService.query(function(response) {					
-					projects = response;
+				DashboardRSService.get(function(response) {
+					dashboard = response;
 					if (callback) {
-						callback(response.length);
+						callback(dashboard.size);
 					}					
 				});
 			}
-		
+
 			_load();
 
 			return {
+				getProjects: function() {
+					if (dashboard) {
+						return dashboard.projects;
+					}
+					return [];
+				},
 				load: function(callback) {
 					_load(callback);
 				},
 				get: function() {
-					return projects;
-				},
-				size: function() {
-					return projects.length;
-				},
+					return dashboard;
+				},				
 				clear: function() {
-					projects = [];
-				}				
+					dashboard = null;
+				}
 			};
-		})		
+		})
 		.value('version', '0.1');
