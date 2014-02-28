@@ -37,6 +37,7 @@ app.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashboardCtrl'});
 		$routeProvider.when('/about', {templateUrl: 'partials/about.html', controller: 'AboutCtrl'});
 		$routeProvider.when('/builds', {templateUrl: 'partials/builds.html', controller: 'BuildsCtrl'});
+		$routeProvider.when('/activity/:guid', {templateUrl: 'partials/activity.html', controller: 'ActivityCtrl'});
 		$routeProvider.otherwise({redirectTo: '/dashboard'});
 	}]);
 
